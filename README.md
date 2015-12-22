@@ -6,6 +6,20 @@ This script was written to provide high-throughput annotation for variations.
 The script returns information from various sources and outputs a table with
 each queried variations in each line.
 
+**Sources**:
+
+  * Basic variation and gene information: [Ensembl](http://www.ensembl.org/index.html)
+  * [1000 Genomes](http://www.1000genomes.org/about#ProjectSamples) minor allele frequency: [Ensembl](http://www.ensembl.org/index.html)
+  * Prontein information from [Uniprot](http://www.uniprot.org/)
+  * overlapping GWAS signals: [GWAS catalog](https://www.ebi.ac.uk/gwas/) (modified local file, downloaded: 2015.06.16)
+  * gene annotations: local [GENCODE](http://www.gencodegenes.org/) file (release v.19)
+  * GWAVA score: local [GWAVA](http://www.nature.com/nmeth/journal/v11/n3/full/nmeth.2832.html) run
+
+**About the methods:**
+
+  * Ensembl queries are submitted through the [REST API](http://grch37.rest.ensembl.org/)
+  * Used human genome build: **GRCH37**
+
 ### Version
 
 **v.1.3** Last modified 2015.12.21
@@ -56,7 +70,7 @@ specified, the default value will be used.
    If no file is given, the script will expect input from the standard input. In the file, the
 list of variations are expected to be separated by a newline characher. For the input format see input section.
 
-#### Input
+### Input
 
 The script accepts a list of variations where each variation is in a new line.
 If there are more variations in one line, only the first will be considered!
@@ -69,7 +83,7 @@ a1 will be used as reference, and a2 as alternative.
 SNP ID (`chr{chr}:{pos}`) is also accepted, in this case the alternative allele can not
 be calculated, and only overlapping rsIDs will returned, but exact matches can not be established.
 
-#### Output
+### Output
 
 As the script proceeds, many status updates are printed to the standard error.
 Then output is printed to standard output. Where the first row is a header with
@@ -78,11 +92,7 @@ all field names, then each queried variations are in a separate line.
 If there are known gwas signals within the specified distance, a formatted table
 is saved to a separated file: `./gwas_signals.tsv`
 
-#### Contact
-
-With questions and problems please contact me: ds26@sanger.ac.uk
-
-#### Output fields
+### Output fields
 
 | Field number | Field name | Description |
 |:---:|:---:|:---|
@@ -125,16 +135,36 @@ With questions and problems please contact me: ds26@sanger.ac.uk
 | 36 | Variant_SiftScore | SIFT score of the amino acid variation |
 | 37 | Variant_Codons | Codon change calused by the variation |
 | 38 | Variant_AminoAcids | Amino acid change caused by the variation |
-| 39 | Variant_ProteinPosition | Protein positin of the  |
-| 40 | Variant_Freq_CEU |  |
-| 41 | Variant_Freq_TSI |  |
-| 42 | Variant_Freq_FIN |  |
-| 43 | Variant_Freq_GBR |  |
-| 44 | Variant_Freq_IBS |  |
-| 45 | GWAS_hits |  |
-| 46 | GWAVA_score |  |
-| 47 | avg_gerp |  |
-| 48 | gerp |  |
-| 49 | DNase |  |
-| 50 | dnase_fps |  |
-| 51 | bound_motifs |  |
+| 39 | Variant_ProteinPosition | Protein position where the sequence is changed |
+| 40 | Variant_Freq_CEU | MAF in Utah residents with Northern and Western European ancestry (1000 Genomes) |
+| 41 | Variant_Freq_TSI | MAF in Toscani in Italia (1000 Genomes) |
+| 42 | Variant_Freq_FIN | MAF in Finnish in Finland  (1000 Genomes) |
+| 43 | Variant_Freq_GBR | MAF in British in England and Scotland (1000 Genomes) |
+| 44 | Variant_Freq_IBS | MAF in Iberian populations in Spain (1000 Genomes) |
+| 45 | GWAS_hits | List of GWAS hits within a defined distance around the variation |
+| 46 | GWAVA_score | GWAVA functionality prediction (above 0.5 the variation is considered to be functional) |
+| 47 | avg_gerp | GERP score averaged for 100 residues around the variation |
+| 48 | gerp | GERP score of the variation |
+| 49 | DNase | Number of cell types where the site is DNase sensitive |
+| 50 | dnase_fps | DNase footprints in cell lines |
+| 51 | bound_motifs | Number of motifs bound to this region in various cell types |
+
+### Folders contain
+
+* **/data**
+
+   * **/data/gencode.v19.annotation_20150603_protein_coding_genes_sorted.bed.gz**
+
+     List of known protein coding genes in *.bed* format. GENCODE version: 19. Positions are in GRCH37 build (as well as in all other files).
+
+   * **/data/gencode.v19.annotation_20150603_sorted.bed.gz**
+
+     List of all known genes in *.bed* format. GENCODE version: 19.
+
+   * **/data/gwas_catalog_20150616.bed.gz**
+
+     List of known known GWAS signals in *.bed* format. Downloaded from the GWAS catalog on 2015.06.18 and extended with our positive controls.
+
+### Contact
+
+With questions and problems please contact me: ds26@sanger.ac.uk
