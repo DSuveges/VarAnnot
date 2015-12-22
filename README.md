@@ -167,28 +167,36 @@ is saved to a separated file: `./gwas_signals.tsv`
 
 * **/packages**
 
-   * `packages/BasicInformation.pm`
+   * `/packages/BasicInformation.pm`
+
       A set of functions to retrieve the most basic information of the variation regardless the diversity of the accepted inputs.
 
-   * `packages/GetConsequence.pm`
+   * `/packages/GetConsequence.pm`
+
       Get the most severe predicted consequence based on the remote run of the Variant effect predictor.
 
-   * `packages/GetGene.pm`
+   * `/packages/GetGene.pm`
+
        Returns with the cosest gene and closest protein coding gene and the distances.
 
-   * `packages/GetMAFs.pm`
+   * `/packages/GetMAFs.pm`
+
        Queries the Ensembl database if the queried variation has 1000 genomes frequencies.
 
-   * `packages/GetProtein.pm`
+   * `/packages/GetProtein.pm`
+
        Get protein annotation information if Uniprot cross reference is given.
 
-   * `packages/GWAStest.pm`
+   * `/packages/GWAStest.pm`
+
        Checks if there are any gwas signals in around the variation.
 
-   * `packages/GetGWAVA.pm`
+   * `/packages/GetGWAVA.pm`
+
        Runs GWAVA and parses its output.
 
-   * `packages/RESTsubmit.pm`
+   * `/packages/RESTsubmit.pm`
+
        A function to submit properly formulated REST queries.
 
 ### Contact
