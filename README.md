@@ -85,7 +85,7 @@ With questions and problems please contact me: ds26@sanger.ac.uk
 #### Output fields
 
 | Field number | Field name | Description |
-|---|---|---|
+|:---:|:---:|:---|
 | 0 | input | User input |
 | 1 | chr | Chromosome |
 | 2 | start | Start  position |
@@ -96,7 +96,7 @@ With questions and problems please contact me: ds26@sanger.ac.uk
 | 7 | alt | Alternative allele of the variation |
 | 8 | ancestral_allele | Ancestral alle is not necessarely the same as the reference allele.  |
 | 9 | var_class | Type if variation eg. SNP or INDEL |
-| 10 | Gene_name | Name of overlapping gene |
+| 10 | Gene_name | Name of overlapping gene (if multiple genes are overlapping with the variation, the first one is picked) |
 | 11 | Gene_id | Stable Ensembl ID of the overlapping gene |
 | 12 | Gene_description | Description of the overlapping gene from Ensebl |
 | 13 | Gene_biotype | Biotype (eg. protein coding, lncRNA or antisense) |
@@ -107,25 +107,25 @@ With questions and problems please contact me: ds26@sanger.ac.uk
 | 18 | Closest_protein_coding_gene-name | Name of the closest protein coding gene |
 | 19 | Closest_protein_coding_gene-ID | Ensembl ID of the closest protein coding gene |
 | 20 | Closest_protein_coding_gene-distance | Distance from the closest protein coding gene |
-| 21 | Protein_Ensembl_ID |  |
-| 22 | Transcript_Ensembl_ID |  |
-| 23 | Uniprot_ID |  |
-| 24 | Uniprot_Name |  |
-| 25 | Uniprot_Function |  |
-| 26 | Uniprot_Disease |  |
-| 27 | Uniprot_Subunit |  |
-| 28 | Uniprot_Phenotype |  |
-| 29 | Uniprot_localization |  |
-| 30 | Uniprot_Tissue |  |
-| 31 | Uniprot_Development |  |
-| 32 | Variant_Consequence |  |
-| 33 | Variant_Impact |  |
-| 34 | Variant_Polyphen |  |
-| 35 | Variant_PolyphenScore |  |
-| 36 | Variant_SiftScore |  |
-| 37 | Variant_Codons |  |
-| 38 | Variant_AminoAcids |  |
-| 39 | Variant_ProteinPosition |  |
+| 21 | Protein_Ensembl_ID | If the overlapping gene is protein coding, the Ensembl ID of the coded protein |
+| 22 | Transcript_Ensembl_ID | The Ensembl ID of the canonical transcript of the overlapping gene |
+| 23 | Uniprot_ID | The Uniprot ID of the protein coded by the overlapping gene |
+| 24 | Uniprot_Name | Name of the coded protein |
+| 25 | Uniprot_Function | Function of the coded protein |
+| 26 | Uniprot_Disease | Disease associated with the coded protein |
+| 27 | Uniprot_Subunit | Subunit information of the coded protein |
+| 28 | Uniprot_Phenotype | Phenotypes associated with the coded protein |
+| 29 | Uniprot_localization | Intracellular localization of the coded protein |
+| 30 | Uniprot_Tissue | Tissues where the protein is expressed |
+| 31 | Uniprot_Development | Developmental stage where the protein plays a role |
+| 32 | Variant_Consequence | Predicted Ensembl consequence |
+| 33 | Variant_Impact | Impact of the variation |
+| 34 | Variant_Polyphen | Polyphen consequence category |
+| 35 | Variant_PolyphenScore | Polyhen score of the amino acid variation |
+| 36 | Variant_SiftScore | SIFT score of the amino acid variation |
+| 37 | Variant_Codons | Codon change calused by the variation |
+| 38 | Variant_AminoAcids | Amino acid change caused by the variation |
+| 39 | Variant_ProteinPosition | Protein positin of the  |
 | 40 | Variant_Freq_CEU |  |
 | 41 | Variant_Freq_TSI |  |
 | 42 | Variant_Freq_FIN |  |
