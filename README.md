@@ -10,6 +10,8 @@ each queried variations in each line.
 
 **v.1.3** Last modified 2015.12.21
 
+***
+
 ### Requirements
 
 * Working internet connection
@@ -19,13 +21,13 @@ each queried variations in each line.
 ### Usage
 
 #### Reading input from file:
-    
-    ```bash 
-    perl VarAnnot.pl -g -d <Delimiter> -w <Window>  <Input_file>
-    ```
+
+```bash
+perl VarAnnot.pl -g -d <Delimiter> -w <Window>  <Input_file>
+```
 
 #### Reading input from pipe:
 
-    ```bash
-    cat <Input_file> | perl VarAnnot.pl -g -d <Delimiter> -w <Window>
-    ```
+```bash
+cat <Input_file> | perl VarAnnot.pl -g -d <Delimiter> -w <Window>
+```
