@@ -153,17 +153,43 @@ is saved to a separated file: `./gwas_signals.tsv`
 
 * **/data**
 
-   * **/data/gencode.v19.annotation_20150603_protein_coding_genes_sorted.bed.gz**
+   * `/data/gencode.v19.annotation_20150603_protein_coding_genes_sorted.bed.gz`
 
      List of known protein coding genes in *.bed* format. GENCODE version: 19. Positions are in GRCH37 build (as well as in all other files).
 
-   * **/data/gencode.v19.annotation_20150603_sorted.bed.gz**
+   * `/data/gencode.v19.annotation_20150603_sorted.bed.gz`
 
      List of all known genes in *.bed* format. GENCODE version: 19.
 
-   * **/data/gwas_catalog_20150616.bed.gz**
+   * `/data/gwas_catalog_20150616.bed.gz`
 
      List of known known GWAS signals in *.bed* format. Downloaded from the GWAS catalog on 2015.06.18 and extended with our positive controls.
+
+* **/packages**
+
+   * `packages/BasicInformation.pm`
+      A set of functions to retrieve the most basic information of the variation regardless the diversity of the accepted inputs.
+
+   * `packages/GetConsequence.pm`
+      Get the most severe predicted consequence based on the remote run of the Variant effect predictor.
+
+   * `packages/GetGene.pm`
+       Returns with the cosest gene and closest protein coding gene and the distances.
+
+   * `packages/GetMAFs.pm`
+       Queries the Ensembl database if the queried variation has 1000 genomes frequencies.
+
+   * `packages/GetProtein.pm`
+       Get protein annotation information if Uniprot cross reference is given.
+
+   * `packages/GWAStest.pm`
+       Checks if there are any gwas signals in around the variation.
+
+   * `packages/GetGWAVA.pm`
+       Runs GWAVA and parses its output.
+
+   * `packages/RESTsubmit.pm`
+       A function to submit properly formulated REST queries.
 
 ### Contact
 
