@@ -81,3 +81,60 @@ is saved to a separated file: `./gwas_signals.tsv`
 #### Contact
 
 With questions and problems please contact me: ds26@sanger.ac.uk
+
+#### Output fields
+
+| Field number | Field name | Description |
+|---|---|---|
+| 0 | input | User input |
+| 1 | chr | Chromosome |
+| 2 | start | Start  position |
+| 3 | end | End  position |
+| 4 | matching_rsID | Known variation with matchin alleles |
+| 5 | overlapping_rsID | All known variations overlapping the queried position |
+| 6 | ref | Reference allele at the queried position |
+| 7 | alt | Alternative allele of the variation |
+| 8 | ancestral_allele | Ancestral alle is not necessarely the same as the reference allele.  |
+| 9 | var_class | Type if variation eg. SNP or INDEL |
+| 10 | Gene_name | Name of overlapping gene |
+| 11 | Gene_id | Stable Ensembl ID of the overlapping gene |
+| 12 | Gene_description | Description of the overlapping gene from Ensebl |
+| 13 | Gene_biotype | Biotype (eg. protein coding, lncRNA or antisense) |
+| 14 | Gene_strand | Indicating which is the coding strand of the DNA  |
+| 15 | Closest_gene-name | Name of the closest gene regardless its biotype |
+| 16 | Closest_gene-ID | Ensembl ID of the closest gene |
+| 17 | Closest_gene-distance | Distance from the closest gene |
+| 18 | Closest_protein_coding_gene-name | Name of the closest protein coding gene |
+| 19 | Closest_protein_coding_gene-ID | Ensembl ID of the closest protein coding gene |
+| 20 | Closest_protein_coding_gene-distance | Distance from the closest protein coding gene |
+| 21 | Protein_Ensembl_ID |  |
+| 22 | Transcript_Ensembl_ID |  |
+| 23 | Uniprot_ID |  |
+| 24 | Uniprot_Name |  |
+| 25 | Uniprot_Function |  |
+| 26 | Uniprot_Disease |  |
+| 27 | Uniprot_Subunit |  |
+| 28 | Uniprot_Phenotype |  |
+| 29 | Uniprot_localization |  |
+| 30 | Uniprot_Tissue |  |
+| 31 | Uniprot_Development |  |
+| 32 | Variant_Consequence |  |
+| 33 | Variant_Impact |  |
+| 34 | Variant_Polyphen |  |
+| 35 | Variant_PolyphenScore |  |
+| 36 | Variant_SiftScore |  |
+| 37 | Variant_Codons |  |
+| 38 | Variant_AminoAcids |  |
+| 39 | Variant_ProteinPosition |  |
+| 40 | Variant_Freq_CEU |  |
+| 41 | Variant_Freq_TSI |  |
+| 42 | Variant_Freq_FIN |  |
+| 43 | Variant_Freq_GBR |  |
+| 44 | Variant_Freq_IBS |  |
+| 45 | GWAS_hits |  |
+| 46 | GWAVA_score |  |
+| 47 | avg_gerp |  |
+| 48 | gerp |  |
+| 49 | DNase |  |
+| 50 | dnase_fps |  |
+| 51 | bound_motifs |  |
