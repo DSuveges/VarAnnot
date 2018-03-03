@@ -5,7 +5,7 @@ use warnings;
 use RESTsubmit ".";
 
 
-# This routine downloads the frequency of the non-reference allele.
+# This routine returns the frequency of the non-reference allele, not the non-ancestral allele. 
 # input:
     # Usual format of the input lines.
     #    hash{line#}->{
@@ -47,13 +47,14 @@ sub MAFs {
         $variants{$variant}->{"Variant_Freq_IBS"} = "-";
 
         # We don't care variants that don't have a valid rsID:
-        # These variants are not expected to be seen in the poulation database.
+        # These variants are not expected to have population level data:
         next if $variants{$variant}->{"matching_rsID"} eq "-";
 
-        # rsid and the alternative allele are required to retrieve and parse the returned data:
+        # rsid and the reference allele are required to retrieve and parse the returned data:
         my $rsid      = $variants{$variant}->{"matching_rsID"};
-        my $ancestral = $variants{$variant}->{"ancestral_allele"};
-        $ancestral    = $variants{$variant}->{"ref"} if $ancestral eq "-";
+        # my $ancestral = $variants{$variant}->{"ancestral_allele"};
+        # $ancestral    = $variants{$variant}->{"ref"} unless $ancestral; # We use the reference allele!
+        my $refAllele = $variants{$variant}->{"ref"};  
 
         my $URL  = sprintf("http://rest.ensembl.org/variation/human/%s?content-type=application/json&pops=1", $rsid);
         my $data = RESTsubmit::REST($URL);
@@ -61,9 +62,10 @@ sub MAFs {
         # If there was some problem:
         next unless ref $data eq "HASH";
 
-        if ( $data->{ancestral_allele} ) {
-            $ancestral = $data->{ancestral_allele};
-        }
+        # We no longer interested in the ancestral allele:
+        #if ( $data->{ancestral_allele} ) {
+        #    $ancestral = $data->{ancestral_allele};
+        #}
 
         # Looping through all available populations:
         foreach my $popdata (@{$data->{"populations"}}) {
@@ -74,7 +76,7 @@ sub MAFs {
             # We care only about those populations that are listed in the Eur_pops variable.
             next unless $Eur_pops =~ /$pop/;
 
-            if ($popdata->{allele} eq $ancestral){ # Frequency of the ancestral variant
+            if ($popdata->{allele} eq $refAllele){ # Frequency of the ancestral variant
                 $variants{$variant}->{"Variant_Freq_$pop"} = 1 - $popdata->{frequency} unless $variants{$variant} eq "-";
             }
             else{# Frequency of the alternate variant

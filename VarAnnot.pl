@@ -213,7 +213,7 @@ for (my $index = 1; $index <= scalar(keys %{$input_lines}); $index++){
         # Picking the field:
         my $added_field =$stuff->{$field};
 
-        # Removing quotes from fied:
+        # Removing quotes from field:
         $added_field =~ s/["']//g;
 
         # if the field contains the delimiter string it will be quoted:

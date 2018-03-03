@@ -10,11 +10,18 @@ package RESTsubmit;
 =head1 Usage
 
     my $URL = 'http://grch37.rest.ensembl.org/variation/human/rs1234.json';
-    my $response = RESTsubmit($URL);
+    my $response = RESTsubmit($method, $URL, $content);
 
 =head1 Input
 
     Input of this function is just a valid REST URL.
+
+
+=over 4
+
+=item $method
+
+It could be either POST or GET
 
 =head1 version
 

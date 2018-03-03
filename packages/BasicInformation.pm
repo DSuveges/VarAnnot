@@ -57,7 +57,7 @@ sub Input_cleaner {
             $input_lines{$key} = &pos_finder_rs($input_lines{$key});
         }
         # SNP ID with alleles has been provided:
-        elsif ( $input_lines{$key}{"input"} =~ /chr(\d{1,2})\:(\d+)\-(\d+)\_(\S+)_(\S+)/i ){
+        elsif ( $input_lines{$key}{"input"} =~ /chr(.+?)\:(\d+)\-(\d+)\_(\S+)_(\S+)/i ){
             $input_lines{$key}{"matching_rsID"} = &rs_finder($input_lines{$key}{"input"});
             $input_lines{$key} = &pos_finder($input_lines{$key});
         }
@@ -136,7 +136,7 @@ sub pos_finder_rs {
 sub pos_finder {
     my %hash = %{$_[0]};
     my $input = $hash{"input"};
-    $input =~ /chr(\d{1,2})\:(\d+)\-(\d+)\_(\S+)_(\S+)/i;
+    $input =~ /chr(.+?)\:(\d+)\-(\d+)\_(\S+)_(\S+)/i;
     my ($chr, $start, $end, $ref, $alt) = ($1, $2, $3, $4, $5);
 
     # Retrieving the real reference allele, that is based on the reference genome:
@@ -211,13 +211,10 @@ sub overlapping_rs_finder {
     my $end = $hash{"end"};
 
     # If we are looking at an insertion, the start-end values are a bit messed:
+    ($end, $start) = ($start, $end) if $end < $start;
     my $URL = '';
-    if ($end < $start) {
-        $URL = sprintf("http://grch37.rest.ensembl.org/overlap/region/human/%s\:%s-%s?feature=variation;content-type=application/json", $chr, $end, $start);
-    }
-    else {
-        $URL = sprintf("http://grch37.rest.ensembl.org/overlap/region/human/%s\:%s-%s?feature=variation;content-type=application/json", $chr, $start, $end);
-    }
+    $URL = sprintf("http://grch37.rest.ensembl.org/overlap/region/human/%s\:%s-%s?feature=variation;content-type=application/json", $chr, $start, $end);
+   
     my $hash = RESTsubmit::REST($URL);
     return "-" unless ref($hash) eq "ARRAY";
 
@@ -252,13 +249,9 @@ sub rs_finder {
     }
 
     # If we are looking at an insertion, the start-end values are a bit messed:
+    ($end, $start) = ($start, $end) if $end < $start;
     my $URL = '';
-    if ($end < $start) {
-        $URL = sprintf("http://grch37.rest.ensembl.org/overlap/region/human/%s\:%s-%s?feature=variation;content-type=application/json", $chr, $end, $start);
-    }
-    else {
-        $URL = sprintf("http://grch37.rest.ensembl.org/overlap/region/human/%s\:%s-%s?feature=variation;content-type=application/json", $chr, $start, $end);
-    }
+    $URL = sprintf("http://grch37.rest.ensembl.org/overlap/region/human/%s\:%s-%s?feature=variation;content-type=application/json", $chr, $start, $end);
 
     my $hash = RESTsubmit::REST($URL);
 
@@ -269,20 +262,25 @@ sub rs_finder {
     foreach my $variant (@{$hash}){
 
         # Reading values from the returned data:
-        my $A1    = $variant->{alleles}->[0] if $variant->{alleles}->[0];
-        my $A2    = $variant->{alleles}->[1] if $variant->{alleles}->[1];
+        #my $A1    = $variant->{alleles}->[0] if $variant->{alleles}->[0];
+        #my $A2    = $variant->{alleles}->[1] if $variant->{alleles}->[1];
+        my %allele_hash = ();
+        foreach my $allele (@{$variant->{alleles}}){
+            $allele_hash{$allele} = 1;
+        }
         my $Start = $variant->{start} if $variant->{start};
         my $End   = $variant->{end} if $variant->{end};
         my $name  = $variant->{id};
 
         # If we found the alleles we are looking for:
-        if ((($A1 eq $ref) and ($A2 eq $alt)) and (($start == $Start) and ($end == $End))) {
+        #if ((($A1 eq $ref) and ($A2 eq $alt)) and (($start == $Start) and ($end == $End))) {
+        if (exists $allele_hash{$ref} and exists $allele_hash{$alt}) {
             return $name;
         }
         # print STDERR "\n[Warning] Checking overlapping variant: $name (chr$chr:$Start\_$End\_$A1/$A2) does not match with quried variant: (chr$chr:$start\_$end\_$ref/$alt)\n";
     }
     # If we don't find anything like the variant we were looking for:
-    print STDERR "\n\t[Warning] There were overlapping variants, but the alleles did not match! rsID won't be considered.";
+    print STDERR "\n\t[Warning] There were overlapping variants, but the alleles did not match! rsID won't be considered. (input: $input)\n";
     return "-";
 }
 1;
